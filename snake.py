@@ -9,10 +9,11 @@ turtle.setup(SIZE_X,SIZE_Y)
 turtle.penup()
 SQUARE_SIZE = 20
 START_LENGTH = 7
+TIME_STEP = 100
 pos_list = []
 stamp_list = []
 food_pos = []
-food_stamps = []
+food_stamp = []
 
 snake = turtle.clone()
 snake.shape("square")
@@ -78,11 +79,18 @@ turtle.onkeypress(left,LEFT_ARROW)
 turtle.onkeypress(right,RIGHT_ARROW)
 
 turtle.listen()
+my_pos = snake.pos()
+x_pos=my_pos[0]
+y_pos=my_pos[1]
+
 def move_snake():
     my_pos = snake.pos()
     x_pos=my_pos[0]
     y_pos=my_pos[1]
-    
+
+
+
+
     if direction==RIGHT:
         snake.goto(x_pos + SQUARE_SIZE, y_pos)
         print("you moved right!")
@@ -96,10 +104,20 @@ def move_snake():
         print("you moved up!")
 
     elif direction==DOWN:
-        snake.goto(x_pos, SQUARE_SIZE - y_pos)
+        snake.goto(x_pos ,y_pos - SQUARE_SIZE )
         print("you moved down!")
-    
-        
+
+    #####################
+    global food_stamp,food_pos
+    if snake.pos() in food_pos:
+        food_ind=food_pos.index(snake.pos())
+        food.clearstamp(food_stamp[food_ind])
+        food_pos.pop(food_ind)
+        food_stamp.pop(food_ind)
+        print("you have eaten the food")
+
+
+
     my_pos=snake.pos()
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
@@ -116,18 +134,32 @@ def move_snake():
         print("you hit the right edge! game over!")
         quit()
     
-    elif new_x_pos >= LEFT_EDGE:
+    elif new_x_pos <= LEFT_EDGE:
         print("you hit the left edge! game over!")
         quit()
 
-    elif new_x_pos >= UP_EDGE:
+    elif new_y_pos >= UP_EDGE:
         print("you hit the up edge! game over!")
         quit()
 
-    elif new_x_pos >= DOWN_EDGE:
+    elif new_y_pos <= DOWN_EDGE:
         print("you hit the down edge! game over!")
         quit()
 
-turtle.ontimer(move_snake,TIME_STEP)
+    turtle.ontimer(move_snake,TIME_STEP)
+
 move_snake()
-food.shape('trash.gif')
+
+turtle.register_shape("trash.gif")
+food = turtle.clone()
+food.shape("trash.gif")
+
+
+food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
+for this_food_pos in food_pos:
+    food.goto(this_food_pos)
+    newstamp=food.stamp()
+    food_stamp.append(newstamp)
+food.hideturtle()
+
+
