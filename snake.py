@@ -83,6 +83,24 @@ my_pos = snake.pos()
 x_pos=my_pos[0]
 y_pos=my_pos[1]
 
+
+def make_food():
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+
+    food_x=random.randint(min_x,max_x)*SQUARE_SIZE
+    food_y=random.randint(min_y,max_y)*SQUARE_SIZE
+
+    food.goto(food_x,food_y)
+    food_turtle_pos=(food_x,food_y)
+    food_pos.append(food_turtle_pos)
+    newstamp1=food.stamp()
+    
+    food_stamp.append(newstamp1)
+    
+
 def move_snake():
     my_pos = snake.pos()
     x_pos=my_pos[0]
@@ -115,6 +133,10 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamp.pop(food_ind)
         print("you have eaten the food")
+        START_LENGTH=START_LENGTH+1
+
+        make_food()
+    
 
 
 
@@ -146,6 +168,11 @@ def move_snake():
         print("you hit the down edge! game over!")
         quit()
 
+    if pos_list[-1] in pos_list[0:-1]:
+        
+        print("you ate yourself")
+        quit()
+
     turtle.ontimer(move_snake,TIME_STEP)
 
 move_snake()
@@ -161,5 +188,6 @@ for this_food_pos in food_pos:
     newstamp=food.stamp()
     food_stamp.append(newstamp)
 food.hideturtle()
+
 
 
