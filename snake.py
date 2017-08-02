@@ -181,7 +181,19 @@ turtle.register_shape("trash.gif")
 food = turtle.clone()
 food.shape("trash.gif")
 
+def grow_snake():
+    stamp_pos=snake.stamp
+    stamp_pos
+    
 
+
+
+
+
+
+
+
+    
 food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
 for this_food_pos in food_pos:
     food.goto(this_food_pos)
