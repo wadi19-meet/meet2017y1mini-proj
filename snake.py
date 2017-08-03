@@ -29,7 +29,7 @@ food_stamp = []
 turtle.color("blue")
 snake = turtle.clone()
 
-snakesss.shape("square")
+snake.shape("circle")
 turtle.hideturtle()
 ########################  snake shape
 
