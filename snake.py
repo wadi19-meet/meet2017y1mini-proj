@@ -1,32 +1,38 @@
 import turtle
 import random
-
+turtle.bgcolor("yellow")
 turtle.tracer(1,0)
-SIZE_X=800
-SIZE_Y=500
-turtle.setup(SIZE_X+50,SIZE_Y+50)
+SIZE_X=950
+SIZE_Y=510
+turtle.setup(SIZE_X+20,SIZE_Y+20)
+#size of the game
+edge=turtle.clone()
+edge.penup()
+edge.goto(SIZE_X/2,SIZE_Y/2)
+edge.pendown()
+edge.goto(SIZE_X/2,-SIZE_Y/2)
+edge.goto(-SIZE_X/2,-SIZE_Y/2)
+edge.goto(-SIZE_X/2,SIZE_Y/2)
+edge.goto(SIZE_X/2,SIZE_Y/2)
+edge.penup()
+edge.hideturtle()
+#the edge place
 
 turtle.penup()
-turtle.goto(SIZE_X/2,SIZE_Y/2)
-turtle.pendown()
-turtle.goto(SIZE_X/2,-SIZE_Y/2)
-turtle.goto(-SIZE_X/2,-SIZE_Y/2)
-turtle.goto(-SIZE_X/2,SIZE_Y/2)
-turtle.goto(SIZE_X/2,SIZE_Y/2)
-turtle.penup()
-turtle.goto(0,0)
 SQUARE_SIZE = 20
-START_LENGTH = 3
+START_LENGTH = 3#snake size
 TIME_STEP = 100
 pos_list = []
 stamp_list = []
 food_pos = []
 food_stamp = []
-
+turtle.color("blue")
 snake = turtle.clone()
-snake.shape("square")
+
+snakesss.shape("square")
 turtle.hideturtle()
-########################
+########################  snake shape
+
 
 
 
@@ -49,7 +55,7 @@ DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
 
 SPACEBAR="space"
-
+#the arrows
 
 UP=0
 LEFT=2
@@ -63,7 +69,7 @@ DOWN_EDGE = -SIZE_Y/2
 RIGHT_EDGE = SIZE_X/2
 LEFT_EDGE = -SIZE_X/2
 
-
+#size of the edge
 
 def up():
     global direction
@@ -88,12 +94,12 @@ def right():
     if direction != LEFT :
         direction=RIGHT
     print("you pressed the right key")
-
+# how to work the arrow
 turtle.onkeypress(up,UP_ARROW)
 turtle.onkeypress(down,DOWN_ARROW)
 turtle.onkeypress(left,LEFT_ARROW)
 turtle.onkeypress(right,RIGHT_ARROW)
-
+#change the placess
 turtle.listen()
 my_pos = snake.pos()
 x_pos=my_pos[0]
@@ -102,7 +108,7 @@ y_pos=my_pos[1]
 turtle.register_shape("trash.gif")
 food = turtle.clone()
 food.shape("trash.gif")
-
+#the food
     
 
 
@@ -116,6 +122,10 @@ for this_food_pos in food_pos:
     newstamp=food.stamp()
     food_stamp.append(newstamp)
 food.hideturtle()
+
+
+#food place
+
 
 def make_food():
    
@@ -135,8 +145,17 @@ def make_food():
     newstamp1=food.stamp()
     
     food_stamp.append(newstamp1)
+    food_stamp!=snake.pos()
     
+#food appers randomly
+    
+score=turtle.clone()  
 c=0
+score.goto(-448,230)
+score.color ("red")
+
+
+
 def move_snake():
     my_pos = snake.pos()
     x_pos=my_pos[0]
@@ -160,15 +179,14 @@ def move_snake():
     elif direction==DOWN:
         snake.goto(x_pos ,y_pos - SQUARE_SIZE )
         print("you moved down!")
-
-    #####################
+    #####################the move of the snake
     my_pos=snake.pos()
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
     stamp_list.append(new_stamp)
     global c,food_stamp,food_pos
-
-
+    ## how the snake stamps disapper
+    
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamp[food_ind])
@@ -176,12 +194,14 @@ def move_snake():
         food_stamp.pop(food_ind)
         print("you have eaten the food")
         make_food()
-
+    ##how to eat food
         c = c + 1
-        print (c)
-        turtle.write(c)
-        turtle.goto(-200,150)
-    
+        score.clear()
+        score.write("score = "+ str (c))
+        
+
+        
+        
     else :
         old_stamp = stamp_list.pop(0)
         snake.clearstamp(old_stamp)
@@ -190,7 +210,7 @@ def move_snake():
     new_pos = snake.pos()
     new_x_pos = new_pos[0]
     new_y_pos = new_pos[1]
-
+#clear stamp
     if new_x_pos >= RIGHT_EDGE:
         print("you hit the right edge! game over!")
         quit()
@@ -211,7 +231,7 @@ def move_snake():
         
         print("you ate yourself")
         quit()
-
+##when you hit edges you die
     turtle.ontimer(move_snake,TIME_STEP)
 
 move_snake()
