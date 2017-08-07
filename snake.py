@@ -41,7 +41,9 @@ for i in range (START_LENGTH):
     x_pos=snake.pos()[0]
     y_pos=snake.pos()[1]
     x_pos = x_pos + SQUARE_SIZE
+
     new_pos=(x_pos,y_pos)
+
     snake.goto(x_pos,y_pos)
     pos_list.append(new_pos)
     
