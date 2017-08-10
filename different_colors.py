@@ -1,6 +1,6 @@
 import turtle
 import random
-turtle.bgcolor("yellow")
+turtle.bgcolor("AntiqueWhite")
 turtle.tracer(1,0)
 SIZE_X=950
 SIZE_Y=510
@@ -26,7 +26,7 @@ pos_list = []
 stamp_list = []
 food_pos = []
 food_stamp = []
-turtle.color("Snow2")
+turtle.color("AntiqueWhite4")
 snake = turtle.clone()
 
 snake.shape("circle")
@@ -154,7 +154,7 @@ def make_food():
 score=turtle.clone()  
 c=0
 score.goto(-448,230)
-score.color ("red")
+score.color ("AntiqueWhite3")
 
 
 
@@ -237,6 +237,7 @@ def move_snake():
     turtle.ontimer(move_snake,TIME_STEP)
 
 move_snake()
+
 
 
 
